@@ -1,8 +1,8 @@
 # bearer-auth
 
 ## HEROKU URL : https://qais-basic-api-server.herokuapp.com/
-## PR : https://code04-api-server.herokuapp.com/
-## ACTION : https://github.com/qaisw96/api-server/actions
+## PR : https://github.com/qaisw96/bearer-auth/pull/2
+## ACTION : https://github.com/qaisw96/bearer-auth/actions
 
 
 ## UML DIAGRAM : 
