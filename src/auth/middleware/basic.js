@@ -9,13 +9,16 @@ const SECRET = process.env.SECRET || 'mysecret';
 module.exports = async (req, res, next) => {
   
 
-  if (!req.headers.authorization) { return _authError(); }
+  if (!req.headers.authorization) { next('ERROR') };
+  console.log('from basic', req.headers.authorization);
 
   let basic = req.headers.authorization.split(' ').pop() ;
   let [user, pass] = base64.decode(basic).split(':');
-  // console.log(user, pass);
+  // console.log(user, pass); basec user: pass
   try {
     req.user = await User.authenticateBasic(user, pass)
+    
+
     let token = jwt.sign({username: user.username}, SECRET);
     // console.log(req.user);
     req.token = token

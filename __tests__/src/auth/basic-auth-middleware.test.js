@@ -42,7 +42,7 @@ describe('Auth Middleware', () => {
           expect(res.status).toHaveBeenCalledWith(403);
         });
 
-    }); // it()
+    }); 
 
     it('logs in an admin user with the right credentials', () => {
 

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@code-fellows/supergoose": "^1.1.0",
     "base-64": "^1.0.0",
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.5",
@@ -14,9 +15,12 @@
     "mongoose": "^5.12.9",
     "morgan": "^1.10.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose --coverage",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
