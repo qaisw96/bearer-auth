@@ -5,8 +5,8 @@ require('dotenv').config()
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
-const SECRET = process.env.SECRET || 'mysecret';
-
+// const SECRET = 'mysecret';
+const SECRET = process.env.secretOrPrivateKey || 'secret'
 
 const users = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
@@ -19,7 +19,7 @@ users.virtual('token').get(function () {
   let tokenObject = {
     username: this.username,
   }
-  return jwt.sign(tokenObject, process.env.secretOrPrivateKey || 'secret')
+  return jwt.sign(tokenObject, SECRET)
 });
 
 users.pre('save', async function () {
@@ -39,10 +39,12 @@ users.statics.authenticateBasic = async function (username, password) {
 
 // BEARER AUTH
 users.statics.authenticateWithToken = async function (token) {
-  // console.log('from model bearer', token);
+  console.log('from model bearer', token);
   try {
-    const parsedToken = jwt.verify(token, SECRET);
-    const user = await this.findOne({ username: parsedToken.username })
+    let parsedToken = jwt.verify(token, SECRET);
+    // it gave me the same token in sign method 
+    let user = await this.findOne({ username: parsedToken.username })
+    console.log('from model bearer ghofran', user);
     if (user) { return user; }
     throw new Error("User Not Found");
   } catch (e) {

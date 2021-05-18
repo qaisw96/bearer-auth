@@ -27,7 +27,9 @@ authRouter.post('/signup', async (req, res, next) => {
 
 authRouter.post('/signin', basicAuth, (req, res, next) => {
   
-  res.cookie('auth-token', req.user.token);
+  // res.cookie('auth-token', req.user.token);
+  res.set('auth-token', req.user.token);
+
 
   // console.log(req.token);
   // res.cookie('auth-token', req.token);
@@ -47,13 +49,12 @@ authRouter.post('/signin', basicAuth, (req, res, next) => {
   // })
 });
 
+
 authRouter.get('/users', bearerAuth, async (req, res, next) => {
   const users = await User.find({});
   const list = users.map(user => user.username);
   res.status(200).json(list);
 });
-
-
 
 authRouter.get('/secret', bearerAuth, async (req, res, next) => {
   res.status(200).send("Welcome to the secret area!")
